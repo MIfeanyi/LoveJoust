@@ -1,4 +1,4 @@
-require 'player'
+require 'states.player'
 
 local state = {}
 local players = {} -- array of current enemies
@@ -30,7 +30,7 @@ function state:update(dt)
 end
 
 function state:draw()
-	
+    love.graphics.print("Game State",400,600)
 end
 
 function state:keypressed(key, unicode)
