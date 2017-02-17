@@ -8,7 +8,7 @@ states = {}
 
 function love.load()
 	states.menu = lovelyMoon.addState("states.intro", "intro") 
-	--states.game = lovelyMoon.addState("states.game", "game")
+	states.game = lovelyMoon.addState("states.game", "game")
 	
 	lovelyMoon.enableState("intro")
 end
