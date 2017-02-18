@@ -1,16 +1,18 @@
 --Source code under MIT License
 --Copyright 2017 Michael Redford
 
+class = require 'lib.30log'
 -- DOCs: https://love2d.org/forums/viewtopic.php?f=5&t=38702
 lovelyMoon = require("lib.lovelyMoon")
 states = {}
 
 
 function love.load()
+  love.graphics.setBackgroundColor(0,0,255)
 	states.menu = lovelyMoon.addState("states.intro", "intro") 
 	states.game = lovelyMoon.addState("states.game", "game")
 	
-	lovelyMoon.enableState("intro")
+	lovelyMoon.enableState("game")
 end
 
 function love.update(dt)

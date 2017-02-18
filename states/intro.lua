@@ -34,7 +34,7 @@ function state:keypressed(key, unicode)
 end
 
 function state:keyreleased(key, unicode)
-  if key == " " then
+  if key == "space" then
     lovelyMoon.switchState("intro", "game")
     end
 end
