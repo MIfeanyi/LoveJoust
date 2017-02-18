@@ -26,7 +26,7 @@ end
 
 function state:draw()
   love.graphics.print("Love Joust", 400, 300)
-  love.graphics.print("Press Enter to begin!", 400, 400)
+  love.graphics.print("Press space to begin!", 400, 400)
 end
 
 function state:keypressed(key, unicode)

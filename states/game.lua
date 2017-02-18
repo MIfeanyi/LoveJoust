@@ -81,10 +81,13 @@ end
 
 function state:draw()
 
-  if stage.currentStage == 0 then
-    love.graphics.setColor(0,255,0,150)
+  if stage.currentStage == 0 then 
+    love.graphics.setColor(0,0,255,255)
     love.graphics.rectangle("fill", 0, 0, 200, 200)
+    love.graphics.rectangle("fill",300,0,400, 200)
     love.graphics.setColor(255,255,255,255)
+    love.graphics.printf("Movement – WASD / Arrow Keys Jump / Fly – Space Projectile – Z / X",305,0,300)
+    love.graphics.setColor(255,255,255,255) -- color reset
     btnNinja:draw()
     btnPlay:draw()
   end
