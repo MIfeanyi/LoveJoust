@@ -1,7 +1,7 @@
 require 'states.player'
 require 'states.button'
 local state = {}
-local players = {} -- array of current enemies
+
 
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
 local physics = {velocity = 125, gravity = 200, jump = 400, flight = 450}
@@ -14,11 +14,8 @@ end
 
 function state:load()
   love.graphics.setBackgroundColor(100,100,100)
-  newPlayer = {x = 0,y = 0,img,h,w, onGround = false, inAir = true,
-    onCreature = true, ai = false, alive = false}
-  newPlayer.img = love.graphics.newImage("/img/ninja.png")
-  table.insert(players,newPlayer)
-
+  addPlayer("P1",200,200,"/img/ninja.png",64,64,false,true,true,false,true)
+  
   btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
   btnPlay  = button:new() btnPlay:load(50, 150,"/img/play.png")
 
@@ -69,8 +66,17 @@ function state:update(dt)
         end
         p.y = p.y + (physics.gravity*dt)
       end
+      if p.ai then
+        --AI stuff
+      end
+      if p.x > love.graphics.getWidth() + 32 then p.x = 0 -32 end
+      if p.x < -64 then p.x = love.graphics.getWidth() end
+
+
     end
 
+
+    --
 
   else
     --Error
