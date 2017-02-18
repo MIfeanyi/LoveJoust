@@ -4,7 +4,7 @@ local state = {}
 local players = {} -- array of current enemies
 
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
-local physics = {velocity = 125, gravity = 250, jump = 650}
+local physics = {velocity = 125, gravity = 250, jump = 650, flight = 450}
 
 local currentPlayer = "ninja"
 
@@ -14,7 +14,7 @@ end
 
 function state:load()
   newPlayer = {x = 0,y = 0,img,h,w, onGround = false, inAir = true,
-    onTransportation = true, ai = false, alive = false}
+    onCreature = true, ai = false, alive = false}
   newPlayer.img = love.graphics.newImage("/img/ninja.png")
   table.insert(players,newPlayer)
 

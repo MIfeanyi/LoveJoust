@@ -1,5 +1,5 @@
 
-player = {x,y,img,h,w, onGround, inAir, onTransportation, ai, alive}
+player = {id = " ",x,y,img,h,w, onGround, inAir, onCreature, ai, alive}
 
 function selectPlayer(char)
 end
