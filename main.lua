@@ -8,7 +8,7 @@ states = {}
 
 
 function love.load()
-  love.graphics.setBackgroundColor(0,0,255)
+  
 	states.menu = lovelyMoon.addState("states.intro", "intro") 
 	states.game = lovelyMoon.addState("states.game", "game")
 	
