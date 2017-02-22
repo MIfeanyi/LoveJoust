@@ -1,5 +1,5 @@
-require 'states.player'
-require 'states.button'
+require 'player'
+require 'button'
 local state = {}
 
 
@@ -15,7 +15,7 @@ end
 function state:load()
   love.graphics.setBackgroundColor(100,100,100)
   addPlayer("P1",200,200,"/img/ninja.png",64,64,false,true,true,false,true)
-  
+
   btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
   btnPlay  = button:new() btnPlay:load(50, 150,"/img/play.png")
 
@@ -39,7 +39,7 @@ function state:update(dt)
     --Select Character--
     if btnNinja:clicked() then currentPlayer = "ninja" end
     if btnPlay:clicked() then
-      stage.currentStage = 1 
+      stage.currentStage = 1
       sndIntro:play()
     end
 
@@ -87,7 +87,7 @@ end
 
 function state:draw()
 
-  if stage.currentStage == 0 then 
+  if stage.currentStage == 0 then
     love.graphics.setColor(0,0,255,255)
     love.graphics.rectangle("fill", 0, 0, 200, 200)
     love.graphics.rectangle("fill",300,0,400, 200)
@@ -105,7 +105,7 @@ function state:draw()
   if stage.currentStage == 2 then
     for i, p in ipairs(players) do
       love.graphics.draw(p.img,p.x,p.y)
-    end 
+    end
   end
 
 end
