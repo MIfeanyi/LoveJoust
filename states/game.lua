@@ -4,7 +4,7 @@ local state = {}
 
 
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
-local physics = {velocity = 125, gravity = 200, jump = 400, flight = 450}
+local physics = {velocity = 125, gravity = 200, jump = 600, flight = 450}
 
 local currentPlayer = "ninja"
 
