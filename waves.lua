@@ -1,18 +1,23 @@
 
-waves = {maxEnemies,spawned = 0, spawnTime,}
+waves = {maxEnemies=30,spawned = 0, spawnTime}
 
 function waves:spawn(rate)
+  math.randomseed(os.time())
+  math.random(); math.random(); math.random()
   if self.spawned <= self.maxEnemies then
-    if (self.maxEnemies/rate + self.spawned) <= self.maxEnemies then
-      for i=1,self.maxEnemies/rate,1 do 
-        --addEnemy(math.random(1,800),-50,"/img/tank.png",1,3,30,true,"ship") 
+    if (rate + self.spawned) <= self.maxEnemies then
+      for i=1,rate,1 do
+        addEnemy("enemy",math.random(i,400),0,"/img/ninja.png",64,64,false,true,true,true,true)
       end
-      self.spawned = self.maxEnemies/rate + self.spawned
-    else 
+      print("added",rate)
+      self.spawned = rate + self.spawned
+    else
       for i=1,self.maxEnemies-self.spawned,1 do
-        --addEnemy(math.random(1,400),-50,"/img/tank.png",1,3,30,true,"tank") 
+        addEnemy("enemy",math.random(i,400),0,"/img/ninja.png",64,64,false,true,true,true,true)
       end
+      print("Added",self.maxEnemies-self.spawned)
       self.spawned = self.maxEnemies-self.spawned + self.spawned
     end
   end
+  print("total spawned:",waves.spawned)
 end

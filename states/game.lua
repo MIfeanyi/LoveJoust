@@ -1,5 +1,8 @@
 require 'player'
 require 'button'
+require 'timer'
+require 'waves'
+
 local state = {}
 
 
@@ -14,20 +17,22 @@ end
 
 function state:load()
   love.graphics.setBackgroundColor(100,100,100)
-  addPlayer("P1",200,200,"/img/ninja.png",64,64,false,true,true,false,true)
+
+  addPlayer("P1",668,0,"/img/ninja.png",64,64,false,true,true,false,true)
 
   btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
   btnPlay  = button:new() btnPlay:load(50, 150,"/img/play.png")
 
   sndIntro = love.audio.newSource("/sfx/intro.wav")
+
 end
 
 function state:close()
-
+  timer:reset()
 end
 
 function state:enable()
-
+  timer:reset()
 end
 
 function state:disable()
@@ -48,10 +53,20 @@ function state:update(dt)
     if sndIntro.isStopped then
       stage.currentStage = 2
       print("moving to game")
+
+      timer:start(5,dt)
+      waves:spawn(20)
     end
 
   elseif stage.currentStage == 2 then
     --Game--
+    timer:update(dt)
+    if timer.done then
+      waves:spawn(5)
+      timer:reset()
+      print("Reset Timer & spawned more")
+    end
+
     --Handle movement, AI
     for i, p in ipairs(players) do
       if p.ai == false then --Player
@@ -66,24 +81,21 @@ function state:update(dt)
         end
         p.y = p.y + (physics.gravity*dt)
       end
-      if p.ai then
-        --AI stuff
+      if p.ai then -- if we do automated tests
+        --p.y = p.y + (physics.gravity*dt)
       end
       if p.x > love.graphics.getWidth() + 32 then p.x = 0 -32 end
       if p.x < -64 then p.x = love.graphics.getWidth() end
-
-
+      --if p.id == "P1" then print("This is the player:",p.x,p.y) end
+    end
+    for j, e in ipairs(enemies) do
+      e.y = e.y + (physics.gravity*dt)/40
     end
 
 
-    --
-
-  else
-    --Error
   end
-
-
 end
+
 
 function state:draw()
 
@@ -101,10 +113,14 @@ function state:draw()
     love.graphics.print("Ready!",400,300)
   end
 
-  love.graphics.print("Game State",400,300)
+  --love.graphics.print("Game State",400,300)
   if stage.currentStage == 2 then
     for i, p in ipairs(players) do
+      --print("drawing")
       love.graphics.draw(p.img,p.x,p.y)
+    end
+    for j, e in ipairs(enemies) do
+      love.graphics.draw(e.img,e.x,e.y)
     end
   end
 
@@ -115,6 +131,12 @@ function state:keypressed(key, unicode)
 end
 
 function state:keyreleased(key, unicode)
+  if key == "space" then
+    for i, p in ipairs(players) do
+      print("ID",p.id,"player=",p.ai,p.x,p.y,p.h,p.w,p.onGround,p.inAir,
+        p.onCreature,p.ai,p.alive)
+    end
+  end
 
 end
 

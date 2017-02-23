@@ -1,13 +1,27 @@
 players = {} -- array of current enemies
-player = {id = " ",x,y,img,h,w, onGround, inAir, onCreature, ai, alive}--Reference
+enemies = {}
+local player = {id = " ",x,y,img,h,w, onGround, inAir, onCreature, ai, alive}--Reference
+local enemy = {id = " ",x,y,img,h,w, onGround, inAir, onCreature, ai, alive}
+
+--addPlayer("P1",668,600,"/img/ninja.png",64,64,false,true,true,false,true)
 
 function addPlayer(id,x,y,src,h,w, onGround, inAir, onCreature, ai, alive)
-  player.id,player.x,player.y,player.h,player.w,player.onGround,player.inAir,player.onCreature,player.ai,player.alive = id,x,y,h,w, onGround, inAir, onCreature, ai, alive
-  player.img = love.graphics.newImage(src)
-  table.insert(players,player)
+  newPlayer = {id = id,x=x,y=y,img,h=h,w=w, onGround=onGround, inAir=inAir, onCreature=onCreature, ai=ai, alive=alive}
+  newPlayer.id,newPlayer.x,newPlayer.y,newPlayer.h,newPlayer.w,newPlayer.onGround,newPlayer.inAir,
+  newPlayer.onCreature,newPlayer.ai,newPlayer.alive = id,x,y,h,w, onGround, inAir, onCreature, ai, alive
+  newPlayer.img = love.graphics.newImage(src)
+  table.insert(players,newPlayer)
+  print("adding ",newPlayer.id,"AI =",newPlayer.ai)
 end
 
-
+function addEnemy(id,x,y,src,h,w, onGround, inAir, onCreature, ai, alive)
+  newEnemy = {id = id,x=x,y=y,img,h=h,w=w, onGround=onGround, inAir=inAir, onCreature=onCreature, ai=ai, alive=alive}
+  newEnemy.id,newEnemy.x,newEnemy.y,newEnemy.h,newEnemy.w,newEnemy.onGround,newEnemy.inAir,
+  newEnemy.onCreature,newEnemy.ai,newEnemy.alive = id,x,y,h,w, onGround, inAir, onCreature, ai, alive
+  newEnemy.img = love.graphics.newImage(src)
+  table.insert(enemies,newEnemy)
+  print("adding ",newEnemy.id,"AI =",newEnemy.ai)
+end
 
 function selectPlayer(char)
 end
