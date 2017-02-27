@@ -1,56 +1,45 @@
--- AI
---[[ Goal: Randomly handle enemy movement.
-Example: I want every other enemy registered to move in a different direction (Left/Right)
-]]
+ai = {lockX=0,lockY=0,distance = 10,aiTimer=0,maxAi=.05,
+  floor,
+  ceiling,
+  flapTimer=0, maxFlap =0.2}
 
-
-
-
-
-
-
-
-
-
---[[ AI Aproach
-
-Goal: We need to dynamically control the enemies and modify their chracteristics.
-
-Task:
-
-*What Can the AI Do?
-*What happens when conditions change?
-*What happens when we want to change what the AI does?
-*Where does the AI get it's information from?
-*Who needs to access?
-
-Implementation:
-* setup an array to hold each "mind" for the enemies we control
-* on "update(arr,dt)" we must determine what each mind will do: MoveRight, MoveLeft, Follow
-* "function lock(x,y)" all AI set to follow will move to this target.
-
-update(arr,dt)
-lock(x,y)
-
---design
-function update(arr,dt)
-
---for loop in arr
-if arr.movement = "right" then arr.x++
-if arr.movement = "left" then arr.x--
---etc for lock
-
---check every 3 seconds
-if arr.y > floor - border then -- if getting too close to the ground
-arr.y--
-end -- do same for ceiling
-
-Usage:
-function init()
---for loop in spawn loop
-addAI("enemy",e,"random")
+function ai:lock(x,y)
+  self.lockX, self.lockY = x,y
 end
 
-function update(dt)
+function ai:update(x,y,movement,dt)
+  self.aiTimer = self.aiTimer+dt
+  self.flapTimer = self.flapTimer+dt
 
---]]
+  if self.aiTimer >= self.maxAi then
+    self.aiTimer = 0
+    if movement == "right" then x=x+(physics.velocity*dt)*5 end
+    if movement == "left" then x=x-(physics.velocity*dt)*5 end
+    if movement == "lock" then
+      if x > self.lockX then
+        x = x - (physics.velocity*dt)*5
+      end
+      if x < self.lockX then
+        x = x + (physics.velocity*dt)*5
+      end
+      if y > self.lockY then
+        y = y - (physics.jump*dt)*5
+      end
+      if y < self.lockY then
+        y = y + (physics.jump*dt)*5
+      end
+
+      --[[
+      --check every 3 seconds
+      if arr.y > floor - border then -- if getting too close to the ground
+      arr.y--
+      end -- do same for ceiling
+      ]]
+    end
+    if self.flapTimer > self.maxFlap then
+      y = y - (physics.jump*dt)*10
+      self.flapTimer = 0
+    end
+  end
+  return x,y
+end

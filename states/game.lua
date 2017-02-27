@@ -1,13 +1,11 @@
+physics = {velocity = 200, gravity = 100, jump = 400, flight = 450}
 require 'player'
 require 'button'
 require 'timer'
 require 'waves'
-
+require 'ai'
 local state = {}
-
-
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
-local physics = {velocity = 125, gravity = 200, jump = 400, flight = 450}
 
 local currentPlayer = "ninja"
 
@@ -54,7 +52,7 @@ function state:update(dt)
       stage.currentStage = 2
       print("moving to game")
 
-      timer:start(5,dt)
+      timer:start(20,dt)
       waves:spawn(20)
     end
 
@@ -87,11 +85,16 @@ function state:update(dt)
       if p.x > love.graphics.getWidth() + 32 then p.x = 0 -32 end
       if p.x < -64 then p.x = love.graphics.getWidth() end
       --if p.id == "P1" then print("This is the player:",p.x,p.y) end
-    end
-    for j, e in ipairs(enemies) do
-      e.y = e.y + (physics.gravity*dt)/40
+      ai:lock(p.x,p.y)
     end
 
+    for j, e in ipairs(enemies) do
+      e.y = e.y + (physics.gravity*dt)*.60
+      e. x, e.y = ai:update(e.x,e.y,e.movement,dt)
+      if timer.elaspedTime > 3 and e.y < 0 then
+        e.y = 0
+      end
+    end
 
   end
 end
