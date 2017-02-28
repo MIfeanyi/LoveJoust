@@ -4,6 +4,7 @@ require 'button'
 require 'timer'
 require 'waves'
 require 'ai'
+require 'animation'
 local state = {}
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
 
