@@ -2,8 +2,8 @@
 waves = {maxEnemies=30,spawned = 0, spawnTime}
 
 function waves:spawn(rate)
-  math.randomseed(os.time())
-  math.random(); math.random(); math.random()
+  math.randomseed(os.time()) math.random(); math.random(); math.random()
+
   if self.spawned <= self.maxEnemies then
     if (rate + self.spawned) <= self.maxEnemies then
       for i=1,rate,1 do
