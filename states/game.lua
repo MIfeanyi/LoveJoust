@@ -18,7 +18,10 @@ function state:load()
   love.graphics.setBackgroundColor(100,100,100)
 
   addPlayer("P1",668,0,"/img/ninja.png",64,64,false,true,true,false,true)
-
+  addImage("/img/player.png","player")
+  for i, p in ipairs(players) do
+    table.insert(p.animations,addAnimation(64,64,'1-4','jumping'))
+  end
   btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
   btnPlay  = button:new() btnPlay:load(50, 150,"/img/play.png")
 
@@ -54,7 +57,7 @@ function state:update(dt)
       print("moving to game")
 
       timer:start(20,dt)
-      waves:spawn(20)
+      waves:spawn(5)
     end
 
   elseif stage.currentStage == 2 then
@@ -68,6 +71,9 @@ function state:update(dt)
 
     --Handle movement, AI
     for i, p in ipairs(players) do
+      for j, a in ipairs(p.animations) do
+        a:update(dt)
+      end
       if p.ai == false then --Player
         if love.keyboard.isDown('d') then
           p.x = p.x + (physics.velocity*dt)
@@ -95,6 +101,8 @@ function state:update(dt)
       if timer.elaspedTime > 3 and e.y < 0 then
         e.y = 0
       end
+      if e.x > love.graphics.getWidth() + 32 then e.x = 0 -32 end
+      if e.x < -64 then e.x = love.graphics.getWidth() end
     end
 
   end
@@ -120,8 +128,10 @@ function state:draw()
   --love.graphics.print("Game State",400,300)
   if stage.currentStage == 2 then
     for i, p in ipairs(players) do
-      --print("drawing")
-      love.graphics.draw(p.img,p.x,p.y)
+      --love.graphics.draw(p.img,p.x,p.y)
+      for j, a in ipairs(p.animations) do
+        a:draw(getImage("player"),p.x,p.y)
+      end
     end
     for j, e in ipairs(enemies) do
       love.graphics.draw(e.img,e.x,e.y)
