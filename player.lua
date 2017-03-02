@@ -40,5 +40,9 @@ function playerCollisions(actualX, actualY, cols, len)
   else
     --print("Moved player to (",actualX,",",actualY, ") no issues.")
   end
+  for i=1,len do -- If more than one simultaneous collision, they are sorted out by proximity
+  local col = cols[i]
+  print(("Collision with %s."):format(col.other.name))
+end
   return actualX, actualY
 end
