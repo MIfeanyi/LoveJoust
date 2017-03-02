@@ -33,3 +33,12 @@ end
 
 function selectPlayer(char)
 end
+
+function playerCollisions(actualX, actualY, cols, len)
+  if len > 0 then
+    print(("Attempted to move  but ended up in %d,%d due to %d collisions"):format(actualX, actualY, len))
+  else
+    --print("Moved player to (",actualX,",",actualY, ") no issues.")
+  end
+  return actualX, actualY
+end

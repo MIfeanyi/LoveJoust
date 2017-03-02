@@ -5,6 +5,7 @@ require 'timer'
 require 'waves'
 require 'ai'
 require 'animation'
+require 'map'
 local state = {}
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
 
@@ -16,10 +17,11 @@ end
 
 function state:load()
   love.graphics.setBackgroundColor(100,100,100)
-
+  map:addMap("/lvl/1-1.lua")
   addPlayer("P1",668,0,"/img/ninja.png",64,64,false,true,true,false,true)
   addImage("/img/player.png","player")
   for i, p in ipairs(players) do
+    map:addObject(p)
     table.insert(p.animations,addAnimation(64,64,'1-4','jumping'))
   end
   btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
@@ -63,6 +65,7 @@ function state:update(dt)
   elseif stage.currentStage == 2 then
     --Game--
     timer:update(dt)
+    map:update(dt)
     if timer.done then
       waves:spawn(5)
       timer:reset()
@@ -92,6 +95,7 @@ function state:update(dt)
       if p.x > love.graphics.getWidth() + 32 then p.x = 0 -32 end
       if p.x < -64 then p.x = love.graphics.getWidth() end
       --if p.id == "P1" then print("This is the player:",p.x,p.y) end
+      p.x,p.y = playerCollisions(map:move(p))
       ai:lock(p.x,p.y)
     end
 
@@ -127,6 +131,7 @@ function state:draw()
 
   --love.graphics.print("Game State",400,300)
   if stage.currentStage == 2 then
+    map.maps[1]:draw()
     for i, p in ipairs(players) do
       --love.graphics.draw(p.img,p.x,p.y)
       for j, a in ipairs(p.animations) do
