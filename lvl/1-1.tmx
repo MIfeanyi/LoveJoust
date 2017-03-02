@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="19" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16" tilecount="40" columns="8">
+  <properties>
+   <property name="hello" type="int" value="0"/>
+  </properties>
   <image source="../img/tiles.png" width="128" height="80"/>
   <tile id="8">
    <objectgroup draworder="index">

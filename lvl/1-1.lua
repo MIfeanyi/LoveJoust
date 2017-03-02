@@ -25,7 +25,9 @@ return {
         x = 0,
         y = 0
       },
-      properties = {},
+      properties = {
+        ["hello"] = 0
+      },
       terrains = {},
       tilecount = 40,
       tiles = {
