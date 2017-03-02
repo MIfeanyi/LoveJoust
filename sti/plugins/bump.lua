@@ -84,7 +84,8 @@ return {
            layer      = layer,
            properties = object.properties
           }
-
+          --@redford
+          print("Added tile",t.x,t.y)
           world:add(t, t.x, t.y, t.width, t.height)
           table.insert(collidables, t)
          end
