@@ -36,7 +36,7 @@
  </layer>
  <layer name="platforms" width="40" height="19">
   <properties>
-   <property name="colliable" type="bool" value="true"/>
+   <property name="collidable" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
