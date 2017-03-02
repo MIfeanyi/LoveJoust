@@ -1,7 +1,6 @@
 local sti = require "sti"
 local bump = require "lib.bump"
 
-
 --[[ Map - Load Tiled maps and provide collisions for enemies players etc.
 
 ]]
