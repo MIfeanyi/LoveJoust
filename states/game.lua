@@ -2,10 +2,10 @@ physics = {velocity = 200, gravity = 100, jump = 400, flight = 450}
 require 'player'
 require 'button'
 require 'timer'
-require 'waves'
 require 'ai'
 require 'animation'
 require 'map'
+require 'waves'
 local state = {}
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
 
