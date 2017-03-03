@@ -18,7 +18,8 @@ function addPlayer(id,x,y,src,h,w, onGround, inAir, onCreature, ai, alive)
 end
 
 function addEnemy(id,x,y,src,h,w, onGround, inAir, onCreature, ai, alive)
-  newEnemy = {id = id,x=x,y=y,img,h=h,w=w, onGround=onGround, inAir=inAir, onCreature=onCreature, ai=ai, alive=alive,movement,animations = {}}
+  newEnemy = {id = id,x=x,y=y,img,h=h,w=w, onGround=onGround, inAir=inAir, onCreature=onCreature, ai=ai, alive=alive,movement,
+  animations = {},animated =false}
   random = math.random(1,3)
   if random == 1 then newEnemy.movement = "right" end
   if random == 2 then newEnemy.movement = "left" end
@@ -30,7 +31,15 @@ function addEnemy(id,x,y,src,h,w, onGround, inAir, onCreature, ai, alive)
   table.insert(enemies,newEnemy)
   print("adding ",newEnemy.id,"AI =",newEnemy.ai,"movement:",newEnemy.movement)
 end
-
+function addEnemyAnimation(h,w,frames,id)
+    for i, e in ipairs(enemies) do
+      if e.animated == false then
+        table.insert(e.animations,addAnimation(h,w,frames,id))
+        e.animated = true
+        map:addObject(e)
+      end
+  end
+end
 function selectPlayer(char)
 end
 
