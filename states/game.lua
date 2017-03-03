@@ -1,10 +1,11 @@
 physics = {velocity = 200, gravity = 100, jump = 400, flight = 450}
+require 'map'
 require 'player'
 require 'button'
 require 'timer'
 require 'ai'
 require 'animation'
-require 'map'
+
 require 'waves'
 local state = {}
 local stage = { current = {"Menu", "Paused", "Game"}, currentStage = 0, MaxStages = 3}
@@ -18,13 +19,14 @@ end
 function state:load()
   love.graphics.setBackgroundColor(100,100,100)
   map:addMap("/lvl/1-1.lua")
-  addPlayer("P1",668,0,"/img/ninja.png",64,64,false,true,true,false,true)
+  addPlayer("P1",668,0,"/img/enemy.png",64,64,false,true,true,false,true)
   addImage("/img/player.png","player")
+  addImage("/img/enemy.png","enemy")
   for i, p in ipairs(players) do
     map:addObject(p)
     table.insert(p.animations,addAnimation(64,64,'1-4','jumping'))
   end
-  btnNinja = button:new() btnNinja:load(50,50,"/img/ninja.png")
+  btnNinja = button:new() btnNinja:load(50,50,"/img/enemy.png")
   btnPlay  = button:new() btnPlay:load(50, 150,"/img/play.png")
 
   sndIntro = love.audio.newSource("/sfx/intro.wav")
@@ -100,6 +102,13 @@ function state:update(dt)
     end
 
     for j, e in ipairs(enemies) do
+      if e.animated == false then
+        addEnemyAnimation(32,32,"1-4","jumping")
+        e.animated = true
+      else 
+      for k, a in ipairs(e.animations) do
+        a:update(dt)
+      end
       e.y = e.y + (physics.gravity*dt)*.60
       e. x, e.y = ai:update(e.x,e.y,e.movement,dt)
       if timer.elaspedTime > 3 and e.y < 0 then
@@ -107,6 +116,7 @@ function state:update(dt)
       end
       if e.x > love.graphics.getWidth() + 32 then e.x = 0 -32 end
       if e.x < -64 then e.x = love.graphics.getWidth() end
+      e.x, e.y = playerCollisions(map:move(e))
     end
 
   end
@@ -139,8 +149,12 @@ function state:draw()
       end
     end
     for j, e in ipairs(enemies) do
-      love.graphics.draw(e.img,e.x,e.y)
+      --love.graphics.draw(e.img,e.x,e.y)
+      for j, a in ipairs(e.animations) do
+      a:draw(getImage("enemy"),e.x,e.y)
+      end
     end
+  end
   end
 
 end
