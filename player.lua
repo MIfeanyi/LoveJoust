@@ -40,9 +40,15 @@ function addEnemyAnimation(h,w,frames,id)
       end
   end
 end
+
 function selectPlayer(char)
 end
 
+function filter(item,other)
+  if other.id == "enemy" then return "cross" end 
+  if other.id == "P1" and item.id == "enemy" then return "bounce" end
+  return "slide"
+end
 function playerCollisions(actualX, actualY, cols, len)
   if len > 0 then
     print(("Attempted to move  but ended up in %d,%d due to %d collisions"):format(actualX, actualY, len))
@@ -51,7 +57,7 @@ function playerCollisions(actualX, actualY, cols, len)
   end
   for i=1,len do -- If more than one simultaneous collision, they are sorted out by proximity
   local col = cols[i]
-  print(("Collision with %s."):format(col.other.name))
+  print(("Collision with %s."):format(col.other.id))
 end
   return actualX, actualY
 end
