@@ -23,7 +23,7 @@ function map:addObject(obj)
 end
 
 function map:move(obj)
-  return self.world:move(obj,obj.x,obj.y)
+  return self.world:move(obj,obj.x,obj.y,filter)
 end
 
 function map:update(dt)
