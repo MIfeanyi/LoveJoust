@@ -105,7 +105,7 @@ function state:update(dt)
       if e.animated == false then
         addEnemyAnimation(32,32,"1-4","jumping")
         e.animated = true
-      else 
+      else
       for k, a in ipairs(e.animations) do
         a:update(dt)
       end
@@ -124,7 +124,6 @@ end
 
 
 function state:draw()
-
   if stage.currentStage == 0 then
     love.graphics.setColor(0,0,255,255)
     love.graphics.rectangle("fill", 0, 0, 200, 200)
@@ -156,7 +155,6 @@ function state:draw()
     end
   end
   end
-
 end
 
 function state:keypressed(key, unicode)
@@ -170,15 +168,12 @@ function state:keyreleased(key, unicode)
         p.onCreature,p.ai,p.alive)
     end
   end
-
 end
 
 function state:mousepressed(x, y, button)
-
 end
 
 function state:mousereleased(x, y, button)
-
 end
 
 return state
