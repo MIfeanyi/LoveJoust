@@ -6,12 +6,9 @@ class = require 'lib.30log'
 lovelyMoon = require("lib.lovelyMoon")
 states = {}
 
-
 function love.load()
-
 	states.menu = lovelyMoon.addState("states.intro", "intro")
 	states.game = lovelyMoon.addState("states.game", "game")
-
 	lovelyMoon.enableState("game")
 end
 
@@ -38,4 +35,3 @@ end
 function love.mousereleased(x, y, button)
 	lovelyMoon.events.mousereleased(x, y, button)
 end
-
